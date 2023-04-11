@@ -1,0 +1,17 @@
+body {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 80%;
+    margin: auto;
+}
+
+h1 {
+    font-size: 32pt;
+}
+
+p {
+    font-size: 16pt;
+}
+
+button {
+    font-size: 16pt;
+}
