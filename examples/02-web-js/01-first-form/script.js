@@ -35,4 +35,5 @@ window.onload = (ev) => {
     // attach the events to the appropriate elements
     formElement.addEventListener("submit",formOnSubmit);
     nameElement.addEventListener("invalid",showInvalid);
-    emailElement.addEventListener("invalid",showInvalid);}
+    emailElement.addEventListener("invalid",showInvalid);
+}
