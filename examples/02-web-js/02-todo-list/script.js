@@ -17,7 +17,6 @@ const completeTask = function (ev, id) {
 
 const deleteTask = function (id) {
     let parent = document.getElementById(`task-${id}`)
-    console.log(`task-${id}`)
     parent.remove()
 }
 
