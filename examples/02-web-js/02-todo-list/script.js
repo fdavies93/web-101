@@ -2,10 +2,11 @@ let newTaskName, newTaskButton, taskWrapper;
 let curId = 0;
 
 const completeTask = function (ev, id) {
-    let parent = document.getElementById(id.toString())
+    let parent = document.getElementById(`task-${id}`)
     let title = parent.getElementsByClassName("task-title")[0]
     let checkbox = parent.getElementsByClassName("task-complete")[0]
-    
+
+    // this deals with clicks on the title
     if (ev.target != checkbox) {
         checkbox.click()
     }
@@ -15,42 +16,38 @@ const completeTask = function (ev, id) {
 }
 
 const deleteTask = function (id) {
-    let parent = document.getElementById(id.toString())
+    let parent = document.getElementById(`task-${id}`)
+    console.log(`task-${id}`)
     parent.remove()
 }
 
 const createNewTask = function (ev) {
+
+    let taskHTML = `
+        <div id="task-${curId}" class="task-box flex-row">
+            <span class="button-spacing"><input class="task-complete" type="checkbox"></input></span>
+            <span class="task-title">Hello</span>
+            <span class="spacer"></span>
+            <span class="delete button-spacing">[Delete]</span>
+        </div>
+    `
+
+    // this is necessary to generate a closure
     let myId = curId
-    let taskBox = document.createElement("div");
-    taskBox.classList.add("flex-row", "task-box")
-    taskBox.id = curId.toString()
-    let checkboxHolder = document.createElement("span")
-    checkboxHolder.classList.add("button-spacing")
-    let checkbox = document.createElement("input")
-    checkbox.type = "checkbox"
-    checkbox.classList.add("task-complete")
-    checkbox.addEventListener("click", (ev) => completeTask(ev, myId))
-    checkboxHolder.appendChild(checkbox)
-    let title = document.createElement("span")
-    title.classList.add("task-title")
-    title.innerText = newTaskName.value
-    title.addEventListener("click", (ev) => completeTask(ev, myId))
-    let spacer = document.createElement("span")
-    spacer.classList.add("spacer")
-    // let editButton = document.createElement("span")
-    // editButton.innerText = "[Edit]"
-    // editButton.classList.add("edit", "button-spacing")
-    // add delete button
-    let deleteButton = document.createElement("span")
-    deleteButton.classList.add("delete", "button-spacing")
-    deleteButton.innerText = "[Delete]"
-    deleteButton.addEventListener("click", (ev) => deleteTask(myId))
-    for( const el of [checkboxHolder, title, spacer, deleteButton] ) {
-        taskBox.appendChild(el)
-    }
-    taskWrapper.appendChild(taskBox)
+    curId += 1
+
+    taskWrapper.insertAdjacentHTML("beforeend",taskHTML)
+    let $checkBox = document.querySelector(`#task-${myId} > span > .task-complete`)
+    $checkBox.addEventListener("click", (ev) => completeTask(ev, myId))
+    
+    let $title = document.querySelector(`#task-${myId} > .task-title`)
+    $title.innerText = newTaskName.value
+    $title.addEventListener("click", (ev) => completeTask(ev, myId))
+
+    $delete = document.querySelector(`#task-${myId} > .delete`)
+    $delete.addEventListener("click", (ev) => deleteTask(myId))
+
     newTaskName.value = ""
-    curId += 1;
 }
 
 window.onload = () => {

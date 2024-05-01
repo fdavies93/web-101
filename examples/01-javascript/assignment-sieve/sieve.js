@@ -14,6 +14,6 @@ function sieve(n) {
   return currentList
 }
 
-const primes = sieve(100)
+const primes = sieve(120)
 
 console.log(primes)
